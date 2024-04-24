@@ -1,0 +1,13 @@
+ceo:
+  service:
+    catalogue:
+      uri: http://localhost:8081
+      username: catalogue_service_user
+      password: catalogue
+
+spring:
+  datasource:
+    username: igor
+    password: ni30uywiw
+    url: jdbc:postgresql://localhost:5432/manager
+

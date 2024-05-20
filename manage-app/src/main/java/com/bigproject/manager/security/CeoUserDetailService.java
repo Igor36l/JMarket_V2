@@ -1,6 +1,5 @@
 package com.bigproject.manager.security;
 
-import com.bigproject.manager.CeoUserRepository;
 import com.bigproject.manager.entity.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

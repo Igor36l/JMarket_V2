@@ -5,6 +5,8 @@
     <title>Список товаров &ndash; JMarket</title>
 </head>
 <body>
+<a data-th-href="@{/users/user}">Личный кабинет</a> <br><br>
+<a data-th-href="@{/catalogue/products/favourites}">Избранные товары</a> <br><br>
 <a data-th-href="@{/catalogue/products/create}">+ Создать товар</a>
 <h1>Список товаров</h1>
 <form method="get" data-th-action="@{/catalogue/products/list}">

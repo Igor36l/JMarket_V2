@@ -10,6 +10,10 @@
     <modules>
         <module>manage-app</module>
         <module>catalogue-service</module>
+        <module>feedback-service</module>
+        <module>admin-server</module>
+        <module>customer-app</module>
+
     </modules>
 
     <properties>

@@ -1,25 +1,52 @@
 server:
   port: 8081
 spring:
+  config:
+    import: optional:file:.env[.properties]
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: catalogue-service
+          service-host-type: ip
+        url: http://localhost:8085
   datasource:
     url: jdbc:postgresql://localhost:5432/catalogue
     password: ni30uywiw
     username: igor
-
   security:
-    user:
-      name: catalogue_service_user
-      password: catalogue
-      roles:
-        - SERVICE
-
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI}
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_ISSUER_URI}
+        registration:
+          keycloak:
+            client-id: catalogue-service-metrics-client
+            client-secret: LWRWGTNOni7xr9oIh52Wt6bS9jRcQy6Q
+            authorization-grant-type: client_credentials
+            scope:
+              - metrics_server
   flyway:
     schemas:
       - public
       - catalogue
-
   jpa:
     show-sql: true
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 logging:
   level:

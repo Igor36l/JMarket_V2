@@ -1,4 +1,4 @@
-package com.bigproject.manager.client;
+package com.bigproject.manager.client.reviewClient.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

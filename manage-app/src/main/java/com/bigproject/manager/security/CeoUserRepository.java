@@ -1,4 +1,4 @@
-package com.bigproject.manager;
+package com.bigproject.manager.security;
 
 import com.bigproject.manager.entity.CeoUser;
 import org.springframework.data.repository.CrudRepository;

@@ -1,4 +1,4 @@
-package com.bigproject.manager.client;
+package com.bigproject.manager.client.productClient;
 
 import com.bigproject.manager.entity.Product;
 

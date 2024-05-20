@@ -1,5 +1,6 @@
-package com.bigproject.manager.client;
+package com.bigproject.manager.client.productClient;
 
+import com.bigproject.manager.client.reviewClient.exception.BadRequestException;
 import com.bigproject.manager.controllers.payload.NewProductPayload;
 import com.bigproject.manager.controllers.payload.UpdateProductPayload;
 import com.bigproject.manager.entity.Product;

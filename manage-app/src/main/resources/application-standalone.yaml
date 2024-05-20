@@ -1,13 +1,35 @@
 ceo:
-  service:
+  services:
     catalogue:
       uri: http://localhost:8081
-      username: catalogue_service_user
-      password: catalogue
+      registration-id: keycloak
+    feedback:
+      uri: http://localhost:8084
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
     username: igor
     password: ni30uywiw
     url: jdbc:postgresql://localhost:5432/manager
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: manager-app
+            client-secret: JwByKV4Y8m95GDYTNqJH6jfaj5dXpv8F
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
+
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_ISSUER_URI}
+            user-name-attribute: preferred_username
+
 

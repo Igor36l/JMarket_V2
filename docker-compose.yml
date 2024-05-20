@@ -1,0 +1,31 @@
+version: '3'
+volumes:
+  db_data:
+services:
+  keycloak-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: keycloak_postgres_db
+      POSTGRES_USER: igor
+      POSTGRES_PASSWORD: ni30uywiw
+    ports:
+      - "5435:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_DATABASE: keycloak_postgres_db
+      KC_DB_SCHEMA: public
+      KC_DB_USERNAME: igor
+      KC_DB_PASSWORD: ni30uywiw
+    ports:
+      - "8086:8080"
+    depends_on:
+      - keycloak-db

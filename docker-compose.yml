@@ -12,7 +12,10 @@ services:
       - "5435:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
   keycloak:
     image: quay.io/keycloak/keycloak
     command: start-dev

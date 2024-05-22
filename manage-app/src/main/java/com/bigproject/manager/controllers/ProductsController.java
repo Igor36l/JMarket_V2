@@ -6,6 +6,7 @@ import com.bigproject.manager.client.productClient.ProductRestClient;
 import com.bigproject.manager.controllers.payload.NewProductPayload;
 import com.bigproject.manager.entity.FavouriteProduct;
 import com.bigproject.manager.entity.Product;
+import com.bigproject.manager.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

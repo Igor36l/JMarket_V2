@@ -34,3 +34,6 @@ spring:
 server:
   port: 8080
 
+file:
+  path: ${user.dir}/manage-app/src/main/resources/static/imgs
+

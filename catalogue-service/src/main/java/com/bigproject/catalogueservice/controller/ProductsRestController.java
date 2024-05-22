@@ -38,7 +38,7 @@ public class ProductsRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            Product product = this.productService.createProduct(payload.title(), payload.details());
+            Product product = this.productService.createProduct(payload.title(), payload.details(), payload.imageFileName());
             return ResponseEntity
                     .created(uriBuilder
                             .replacePath("catalogue-api/products/{productId}")

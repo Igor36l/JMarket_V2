@@ -33,13 +33,13 @@ public class RestClientProductsRestClient implements ProductRestClient {
     }
 
     @Override
-    public Product createProduct(String title, String details) {
+    public Product createProduct(String title, String details, String imageFileName) {
         try {
             return this.restClient
                     .post()
                     .uri("catalogue-api/products")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new NewProductPayload(title, details))
+                    .body(new NewProductPayload(title, details, imageFileName))
                     .retrieve()
                     .body(Product.class);
         }catch (HttpClientErrorException.BadRequest exception){
@@ -87,4 +87,5 @@ public class RestClientProductsRestClient implements ProductRestClient {
             throw new NoSuchElementException(exception);
         }
     }
+
 }

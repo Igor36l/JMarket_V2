@@ -20,6 +20,11 @@
       data-th-if="${inFavourite}">
     <button type="submit">Удалить из избранного</button>
 </form>
+<div th:if="${product.imageFileName() != null}">
+    <img data-th-each="img: ${product.imageFileName()}" th:src="@{/imgs/{img}(img=${img})}" width="200" height="200"
+         th:alt="Image"
+         th:onerror="'alert(\'Ошибка загрузки изображения\');'">
+</div>
 <ul>
     <li><strong>ID</strong>: <span data-th-text="${product.id}"></span></li>
     <li><strong>Название</strong>: <span data-th-text="${product.title}"></span></li>

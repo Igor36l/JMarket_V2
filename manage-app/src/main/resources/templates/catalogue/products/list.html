@@ -23,6 +23,11 @@
                     <div class="card-body">
                         <h5 class="card-title" data-th-text="${product.title}"></h5>
                         <p class="card-text" data-th-text="${product.details()}"></p>
+                        <div th:if="${product.imageFileName() != null}">
+                            <img data-th-each="img: ${product.imageFileName()}" th:src="@{/imgs/{img}(img=${img})}" width="200" height="200"
+                                 th:alt="Image"
+                                 th:onerror="'alert(\'Ошибка загрузки изображения\');'">
+                        </div>
                         <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}" class="btn btn-primary">Посмотреть товар</a>
                     </div>
                 </div>

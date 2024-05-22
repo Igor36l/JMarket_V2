@@ -27,8 +27,8 @@ public class DefaultProductService implements ProductService {
 
     @Override
     @Transactional
-    public Product createProduct(String title, String details) {
-        return this.productRepository.save(new Product(null, title, details));
+    public Product createProduct(String title, String details, String imageFileName) {
+        return this.productRepository.save(new Product(null, title, details, imageFileName));
     }
 
     @Override

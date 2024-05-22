@@ -1,6 +1,5 @@
 package com.bigproject.manager.controllers;
 
-import com.bigproject.manager.client.reviewClient.exception.BadRequestException;
 import com.bigproject.manager.client.favouriteClient.FavouriteProductClient;
 import com.bigproject.manager.client.productClient.ProductRestClient;
 import com.bigproject.manager.controllers.payload.NewProductPayload;
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -26,6 +27,11 @@ public class ProductsController {
     private final ProductRestClient productRestClient;
 
     private final FavouriteProductClient favouriteProductClient;
+
+    private final ImageService imageService;
+
+
+
 
     @GetMapping("favourites")
     public String getFavouriteProductsPage(Model model,
@@ -58,13 +64,20 @@ public class ProductsController {
     }
 
     @PostMapping("create")
-    public String createProduct(NewProductPayload payload, Model model) {
+    public String createProduct(@RequestParam MultipartFile file, NewProductPayload payload, Model model) {
        try {
-           Product product = productRestClient.createProduct(payload.title(), payload.details());
+           List<String> imageNameList = new ArrayList<>();
+           if(file.isEmpty()){
+               throw new RuntimeException("Вы ничего не загрузили");
+           }
+           String imageFileName = imageService.saveImage(file);
+           imageNameList.add(file.getOriginalFilename());
+           model.addAttribute("imagePath", imageNameList);
+           Product product = productRestClient.createProduct(payload.title(), payload.details(), imageFileName);
            return "redirect:/catalogue/products/%d".formatted(product.id());
-       } catch (BadRequestException exception) {
+       } catch (RuntimeException exception) {
            model.addAttribute("payload", payload);
-           model.addAttribute("errors", exception.getErrors());
+           model.addAttribute("errors", exception.getMessage());
            return "catalogue/products/new_product";
        }
     }

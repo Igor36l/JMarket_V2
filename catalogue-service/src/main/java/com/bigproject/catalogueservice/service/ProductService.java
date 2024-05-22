@@ -9,7 +9,7 @@ public interface ProductService {
     Iterable<Product> findAllProducts(String filter);
 
 
-    Product createProduct(String title, String details);
+    Product createProduct(String title, String details, String imageFileName);
 
     Optional<Product> findProduct(int productId);
 

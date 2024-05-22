@@ -31,4 +31,8 @@ public class Product {
     @Column(name = "c_details")
     @Size(max = 1000)
     private String details;
+
+    @Column(name = "c_imageFileName")
+    @Size(max = 1000)
+    String imageFileName;
 }

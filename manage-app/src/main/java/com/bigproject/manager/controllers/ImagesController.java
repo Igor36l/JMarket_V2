@@ -40,7 +40,7 @@ public class ImagesController {
                 model.addAttribute("productImages", imageNameList);
                 model.addAttribute("imagePath", imagePathList);
             });
-             return imageFuture.thenApplyAsync(result -> "catalogue/products/new_product"
+             return imageFuture.thenApplyAsync(result -> "catalogue/products/product_image"
             );
 
         }catch (RuntimeException exception){
@@ -49,7 +49,7 @@ public class ImagesController {
             });
             return imageExceptionFuture.thenApplyAsync(result -> {
                 model.addAttribute("errors", exception.getMessage());
-                return "catalogue/products/new_product";
+                return "catalogue/products/product_image";
             });
         }
 

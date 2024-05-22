@@ -18,7 +18,7 @@
     <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
   </ul>
 </div>
-<form method="post" data-th-action="@{/catalogue/products/create}">
+<form method="post" data-th-action="@{/catalogue/products/create}" enctype="multipart/form-data">
   <label>
     Название:<br>
     <input type="text" name="title" data-th-value="${payload?.title}">
@@ -27,41 +27,10 @@
     Описание:<br>
     <textarea name="details" data-th-text="${payload?.details}"></textarea>
   </label><br>
+  <input type="file" name="file"><br>
+  <input type="file" name="file"><br>
   <button type="submit">Создать</button><br>
 </form>
-<form method="post" enctype="multipart/form-data" data-th-action="@{/catalogue/products/images}">
-  <label>
-    Загрузите изображение:<br>
-    <input type="file" name="file">
-  </label><br>
 
-  <div data-th-if="${productImages}">
-    <h3>Загруженные фотографии:</h3>
-    <ul>
-      <li data-th-each="image: ${productImages}" data-th-text="${image}"></li>
-    </ul>
-  </div>
-  <div data-th-if="${imagePath}">
-  <img data-th-each="img: ${imagePath}" th:src="@{/imgs/{img}(img=${img})}" width="200" height="200" alt="изображение">
-  </div>
-  <button type="submit">Загрузить</button>
-</form>
-
-<div th:if="${imagePath != null}">
-  <img data-th-each="img: ${imagePath}" th:src="@{/imgs/{img}(img=${img})}" width="200" height="200"
-       th:alt="Image"
-       th:onerror="'alert(\'Ошибка загрузки изображения\');'">
-</div>
-
-<script>
-  // Обработка ошибки загрузки изображения
-  window.onerror = function (msg, url, lineNo, columnNo, error) {
-    if (msg.includes('Failed to load resource')) {
-      // Скрыть контейнер изображения
-      document.getElementById('image-container').style.display = 'none';
-      // ... Вы можете добавить альтернативное изображение
-    }
-  };
-</script>
 </body>
 </html>

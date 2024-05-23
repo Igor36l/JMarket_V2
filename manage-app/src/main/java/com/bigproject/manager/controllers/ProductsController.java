@@ -6,7 +6,9 @@ import com.bigproject.manager.controllers.payload.NewProductPayload;
 import com.bigproject.manager.entity.FavouriteProduct;
 import com.bigproject.manager.entity.Product;
 import com.bigproject.manager.service.ImageService;
+import com.bigproject.manager.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,7 @@ public class ProductsController {
 
     private final ImageService imageService;
 
+    private final UserService userService;
 
 
 
@@ -64,19 +67,21 @@ public class ProductsController {
     }
 
     @PostMapping("create")
-    public String createProduct(@RequestParam MultipartFile file, NewProductPayload payload, Model model) {
+    public String createProduct(@RequestParam MultipartFile file, NewProductPayload payload, Model model, OAuth2AuthenticationToken token) {
        try {
            List<String> imageNameList = new ArrayList<>();
            if(file.isEmpty()){
                throw new RuntimeException("Вы ничего не загрузили");
            }
            String imageFileName = imageService.saveImage(file);
+           String ownerProduct = userService.getUser(token);
            imageNameList.add(file.getOriginalFilename());
            model.addAttribute("imagePath", imageNameList);
-           Product product = productRestClient.createProduct(payload.title(), payload.details(), imageFileName);
+           Product product = productRestClient.createProduct(payload.title(), payload.details(), imageFileName, ownerProduct);
            return "redirect:/catalogue/products/%d".formatted(product.id());
-       } catch (RuntimeException exception) {
+       } catch (Exception exception) {
            model.addAttribute("payload", payload);
+           model.addAttribute("file", file);
            model.addAttribute("errors", exception.getMessage());
            return "catalogue/products/new_product";
        }

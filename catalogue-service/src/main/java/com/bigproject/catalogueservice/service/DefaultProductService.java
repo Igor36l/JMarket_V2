@@ -1,5 +1,6 @@
 package com.bigproject.catalogueservice.service;
 
+import com.bigproject.catalogueservice.entity.Vendor;
 import com.bigproject.catalogueservice.repository.ProductRepository;
 import com.bigproject.catalogueservice.entity.Product;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +28,15 @@ public class DefaultProductService implements ProductService {
 
     @Override
     @Transactional
-    public Product createProduct(String title, String details, String imageFileName) {
-        return this.productRepository.save(new Product(null, title, details, imageFileName));
+    public Product createProduct(String title, String details, String imageFileName, Vendor ownerProduct, Integer price) {
+        Product product = Product.builder()
+                .title(title).details(details).imageFileName(imageFileName)
+                .ownerProduct(ownerProduct).price(price).build();
+        return this.productRepository.save(product);
     }
 
     @Override
-    public Optional<Product> findProduct(int productId) {
+    public Optional<Product> findProduct(Integer productId) {
         return this.productRepository.findById(productId);
     }
 

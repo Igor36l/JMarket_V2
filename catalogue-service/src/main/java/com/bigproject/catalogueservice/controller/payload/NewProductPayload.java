@@ -11,6 +11,12 @@ public record NewProductPayload (
 
         @Size(max = 1000, message = "{catalogue.products.create.errors.details_size_is_invalid}")
         String details,
+
         @Size(max = 1000, message = "{catalogue.products.create.errors.details_size_is_invalid}")
-        String imageFileName){
+        String imageFileName,
+
+        @Size(max = 65, message = "{catalogue.products.create.errors.details_size_is_invalid}")
+        String ownerProduct,
+
+        Integer price){
 }

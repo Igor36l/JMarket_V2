@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(schema = "catalogue", name = "t_product")
 @NamedQueries(
@@ -32,7 +34,14 @@ public class Product {
     @Size(max = 1000)
     private String details;
 
+    @Column(name = "c_price")
+    private Integer price;
+
     @Column(name = "c_imageFileName")
     @Size(max = 1000)
-    String imageFileName;
+    private String imageFileName;
+
+    @JoinColumn
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Vendor ownerProduct;
 }

@@ -2,7 +2,10 @@ package com.bigproject.catalogueservice.controller;
 
 import com.bigproject.catalogueservice.controller.payload.NewProductPayload;
 import com.bigproject.catalogueservice.entity.Product;
+import com.bigproject.catalogueservice.entity.Vendor;
+import com.bigproject.catalogueservice.repository.VendorRepository;
 import com.bigproject.catalogueservice.service.ProductService;
+import com.bigproject.catalogueservice.service.VendorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +24,8 @@ import java.util.Map;
 public class ProductsRestController {
 
     private final ProductService productService;
+
+    private final VendorService vendorService;
 
 
     @GetMapping
@@ -38,7 +44,8 @@ public class ProductsRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            Product product = this.productService.createProduct(payload.title(), payload.details(), payload.imageFileName());
+            Optional<Vendor> vendor = vendorService.findVendorByName(payload.ownerProduct());
+            Product product = this.productService.createProduct(payload.title(), payload.details(), payload.imageFileName(), vendor.get(), payload.price());
             return ResponseEntity
                     .created(uriBuilder
                             .replacePath("catalogue-api/products/{productId}")

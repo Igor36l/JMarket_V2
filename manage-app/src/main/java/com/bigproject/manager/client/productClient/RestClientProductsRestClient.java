@@ -3,6 +3,7 @@ package com.bigproject.manager.client.productClient;
 import com.bigproject.manager.client.reviewClient.exception.BadRequestException;
 import com.bigproject.manager.controllers.payload.NewProductPayload;
 import com.bigproject.manager.controllers.payload.UpdateProductPayload;
+import com.bigproject.manager.controllers.payload.VendorPayload;
 import com.bigproject.manager.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -33,13 +34,13 @@ public class RestClientProductsRestClient implements ProductRestClient {
     }
 
     @Override
-    public Product createProduct(String title, String details, String imageFileName) {
+    public Product createProduct(String title, String details, String imageFileName, String ownerProduct) {
         try {
             return this.restClient
                     .post()
                     .uri("catalogue-api/products")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new NewProductPayload(title, details, imageFileName))
+                    .body(new NewProductPayload(title, details, imageFileName, ownerProduct))
                     .retrieve()
                     .body(Product.class);
         }catch (HttpClientErrorException.BadRequest exception){

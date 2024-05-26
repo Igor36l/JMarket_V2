@@ -8,12 +8,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>manage-app</module>
-        <module>catalogue-service</module>
-        <module>feedback-service</module>
+        <module>client-view-app</module>
+        <module>products-catalogue-service</module>
+        <module>users-feedback-service</module>
         <module>admin-server</module>
-        <module>customer-app</module>
-
     </modules>
 
     <properties>

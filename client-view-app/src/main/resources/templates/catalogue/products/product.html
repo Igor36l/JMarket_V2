@@ -33,7 +33,8 @@
 <a data-th-href="@{/catalogue/products/{productId}/edit(productId=${product.id})}">Изменить</a>
 <form method="post" data-th-action="@{/catalogue/products/{productId}/delete(productId=${product.id})}">
     <button type="submit">Удалить</button>
-</form>
+</form><br>
+<h2><span data-th-text="'рейтинг товара '+${#numbers.formatDecimal(product.averageRating(),1,1)}"></span></h2><br>
 <h2>Отзывы</h2>
 <div data-th-if="${errors}">
     <h3></h3>

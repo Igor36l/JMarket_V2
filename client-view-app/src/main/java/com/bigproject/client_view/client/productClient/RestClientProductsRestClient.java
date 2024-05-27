@@ -67,7 +67,23 @@ public class RestClientProductsRestClient implements ProductRestClient {
                     .patch()
                     .uri("catalogue-api/products/{productId}", productId)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(new UpdateProductPayload(title, details))
+                    .body(new UpdateProductPayload(title, details, 0))
+                    .retrieve()
+                    .toBodilessEntity();
+        }catch (HttpClientErrorException.BadRequest exception){
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+        }
+    }
+
+    @Override
+    public void updateProduct(int productId, Integer averageRating) {
+        try {
+            this.restClient
+                    .patch()
+                    .uri("catalogue-api/products/{productId}", productId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new UpdateProductPayload(null,null, averageRating))
                     .retrieve()
                     .toBodilessEntity();
         }catch (HttpClientErrorException.BadRequest exception){

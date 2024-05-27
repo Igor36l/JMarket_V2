@@ -48,7 +48,11 @@ public class ProductRestController {
             throw new BindException(bindingResult);
         }
         } else {
-            this.productService.updateProduct(productId, payload.title(), payload.details());
+            if (payload.title() != null || payload.details() != null) {
+                this.productService.updateProduct(productId, payload.title(), payload.details());
+            }else {
+                this.productService.updateProduct(productId, payload.averageRating());
+            }
             return ResponseEntity.noContent().build();
         }
     }

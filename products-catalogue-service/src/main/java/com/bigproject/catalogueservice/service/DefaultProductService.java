@@ -47,7 +47,27 @@ public class DefaultProductService implements ProductService {
                 .ifPresentOrElse(product -> {
                     product.setTitle(title);
                     product.setDetails(details);
+                    this.productRepository.save(product);
+                }, () -> {
+                    throw new NoSuchElementException();
+                });
+    }
 
+    @Transactional
+    @Override
+    public void updateProduct(Integer id, Double averageRating) {
+        this.productRepository.findById(id)
+                .ifPresentOrElse(product -> {
+                    if (product.getCountMarks() != null) {
+                        double average = product.getAverageRating();
+                        double newRating = (average*product.getCountMarks()+averageRating)/(product.getCountMarks()+1.0);
+                        product.setAverageRating(newRating);
+                        product.setCountMarks(product.getCountMarks()+1.0);
+                    }else {
+                        product.setAverageRating(averageRating);
+                        product.setCountMarks(1.0);
+                    }
+                    this.productRepository.save(product);
                 }, () -> {
                     throw new NoSuchElementException();
                 });

@@ -15,6 +15,8 @@ public interface ProductRestClient {
 
     void updateProduct(int productId, String title, String details);
 
+    void updateProduct(int productId, Integer averageRating);
+
     void deleteProduct(int productId);
 
 

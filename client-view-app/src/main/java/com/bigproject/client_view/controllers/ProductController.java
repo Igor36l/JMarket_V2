@@ -50,6 +50,7 @@ public class ProductController {
                                NewProductReviewPayload payload,
                                Model model) {
         this.productReviewsClient.createProductReview(id, payload.rating(), payload.review());
+        this.productRestClient.updateProduct(id, payload.rating());
         model.addAttribute("inFavourite", false);
         model.addAttribute("payload", payload);
         return "redirect:/catalogue/products/%d".formatted(id);

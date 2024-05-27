@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,6 +45,13 @@ public class Product {
     private String imageFileName;
 
     @JoinColumn
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Vendor ownerProduct;
+
+
+    @Column(name = "c_average_rating")
+    private Double averageRating = 0.0;
+
+    @Column(name = "c_count_marks")
+    private Double countMarks = 0.0;
 }

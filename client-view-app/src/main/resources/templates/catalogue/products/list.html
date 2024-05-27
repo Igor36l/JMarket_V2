@@ -39,6 +39,7 @@
                         <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}"
                            class="btn btn-primary">Посмотреть товар</a>
                         <div class="card-footer bg-transparent border-success" data-th-text="${product.ownerProduct.vendorName()}">Footer</div>
+                        <a data-th-text="'рейтинг товара '+${#numbers.formatDecimal(product.averageRating(),1,1)}"></a>
                     </div>
                 </div>
             </div>
